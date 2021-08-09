@@ -37,7 +37,8 @@ client.connect((err) => {
 
   // ======== FIND ALL PRODUCTS ========
   app.get("/products", (req, res) => {
-    productsCollection.find({}).toArray((err, documents) => {
+    const search = req.query.search
+    productsCollection.find({name: {$regex: search}}).toArray((err, documents) => {
       res.send(documents);
     });
   });
